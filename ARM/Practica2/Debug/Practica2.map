@@ -1,0 +1,84 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD ./Practica2b.o
+LOAD ./Practica2b_1.o
+LOAD ./Practica2b_2.o
+START GROUP
+LOAD c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2\libgcc.a
+LOAD c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/lib\libc.a
+END GROUP
+                0x0c000000                . = 0xc000000
+
+.data           0x0c000000       0x60
+ *(.data)
+ .data          0x0c000000       0x20 ./Practica2b.o
+ .data          0x0c000020       0x20 ./Practica2b_1.o
+ .data          0x0c000040       0x20 ./Practica2b_2.o
+ *(.rodata)
+
+.bss            0x0c000060       0x48
+ *(.bss)
+ .bss           0x0c000060       0x28 ./Practica2b.o
+ .bss           0x0c000088        0x0 ./Practica2b_1.o
+ .bss           0x0c000088       0x20 ./Practica2b_2.o
+ *(COMMON)
+
+.text           0x0c0000a8      0x160
+ *(.text)
+ .text          0x0c0000a8       0x88 ./Practica2b.o
+                0x0c0000a8                start
+ .text          0x0c000130       0x50 ./Practica2b_1.o
+ .text          0x0c000180       0x88 ./Practica2b_2.o
+                0x0c000208                PROVIDE (end, .)
+                0x0c7ff000                PROVIDE (_stack, 0xc7ff000)
+OUTPUT(Practica2.elf elf32-littlearm)
+
+.glue_7         0x0c000208        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x0c000208        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x0c000208        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x0c000208        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.ARM.attributes
+                0x00000000       0x22
+ .ARM.attributes
+                0x00000000       0x22 ./Practica2b.o
+ .ARM.attributes
+                0x00000022       0x22 ./Practica2b_1.o
+ .ARM.attributes
+                0x00000044       0x22 ./Practica2b_2.o
+
+.debug_line     0x00000000      0x115
+ .debug_line    0x00000000       0x5e ./Practica2b.o
+ .debug_line    0x0000005e       0x55 ./Practica2b_1.o
+ .debug_line    0x000000b3       0x62 ./Practica2b_2.o
+
+.debug_info     0x00000000      0x127
+ .debug_info    0x00000000       0x61 ./Practica2b.o
+ .debug_info    0x00000061       0x63 ./Practica2b_1.o
+ .debug_info    0x000000c4       0x63 ./Practica2b_2.o
+
+.debug_abbrev   0x00000000       0x3c
+ .debug_abbrev  0x00000000       0x14 ./Practica2b.o
+ .debug_abbrev  0x00000014       0x14 ./Practica2b_1.o
+ .debug_abbrev  0x00000028       0x14 ./Practica2b_2.o
+
+.debug_aranges  0x00000000       0x60
+ .debug_aranges
+                0x00000000       0x20 ./Practica2b.o
+ .debug_aranges
+                0x00000020       0x20 ./Practica2b_1.o
+ .debug_aranges
+                0x00000040       0x20 ./Practica2b_2.o

@@ -1,0 +1,217 @@
+   1              		.cpu arm7tdmi
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 2
+  10              		.eabi_attribute 18, 4
+  11              		.file	"main.c"
+  21              	.Ltext0:
+  22              		.file 1 "../main.c"
+ 1992              		.align	2
+ 1993              		.global	initRGB
+ 1995              	initRGB:
+ 1996              	.LFB0:
+   1:../main.c     **** #include <stdio.h>
+   2:../main.c     **** #include "trafo.h"
+   3:../main.c     **** #include "types.h"
+   4:../main.c     **** #include "lena128.h"
+   5:../main.c     **** 
+   6:../main.c     **** pixelRGB imagenRGB[N][M];
+   7:../main.c     **** unsigned char imagenGris[N][M];
+   8:../main.c     **** unsigned char imagenBinaria[N][M];
+   9:../main.c     **** unsigned char blancosPorFila[N];
+  10:../main.c     **** 
+  11:../main.c     **** void initRGB(pixelRGB m[N][M]) {
+ 1997              		.loc 1 11 0
+ 1998              		.cfi_startproc
+ 1999              		@ Function supports interworking.
+ 2000              		@ args = 0, pretend = 0, frame = 0
+ 2001              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2002              		@ link register save eliminated.
+ 2003              	.LVL0:
+ 2004 0000 F0002DE9 		stmfd	sp!, {r4, r5, r6, r7}
+ 2005              	.LCFI0:
+ 2006              		.cfi_def_cfa_offset 16
+ 2007 0004 6C709FE5 		ldr	r7, .L8
+ 2008              		.cfi_offset 7, -4
+ 2009              		.cfi_offset 6, -8
+ 2010              		.cfi_offset 5, -12
+ 2011              		.cfi_offset 4, -16
+ 2012              		.loc 1 11 0
+ 2013 0008 0060A0E3 		mov	r6, #0
+ 2014              	.LVL1:
+ 2015              	.L2:
+ 2016              		.loc 1 11 0 is_stmt 0 discriminator 1
+ 2017 000c 064080E0 		add	r4, r0, r6
+ 2018 0010 063087E0 		add	r3, r7, r6
+ 2019 0014 0010A0E3 		mov	r1, #0
+ 2020              	.LVL2:
+ 2021              	.L3:
+  12:../main.c     ****     int i,j;
+  13:../main.c     **** 
+  14:../main.c     ****     for (i=0;i<N;i++)
+  15:../main.c     ****         for (j=0; j<M; j++) {
+  16:../main.c     ****             m[i][j].R = lena128[(i*M + j)*3];
+ 2022              		.loc 1 16 0 is_stmt 1 discriminator 2
+ 2023 0018 0050D3E5 		ldrb	r5, [r3, #0]	@ zero_extendqisi2
+ 2024 001c 0420A0E1 		mov	r2, r4
+ 2025 0020 0150E2E7 		strb	r5, [r2, r1]!
+  17:../main.c     ****             m[i][j].G = lena128[(i*M + j)*3 + 1];
+ 2026              		.loc 1 17 0 discriminator 2
+ 2027 0024 01C0D3E5 		ldrb	ip, [r3, #1]	@ zero_extendqisi2
+ 2028 0028 01C0C2E5 		strb	ip, [r2, #1]
+  18:../main.c     ****             m[i][j].B = lena128[(i*M + j)*3 + 2];
+ 2029              		.loc 1 18 0 discriminator 2
+ 2030 002c 0250D3E5 		ldrb	r5, [r3, #2]	@ zero_extendqisi2
+ 2031 0030 0250C2E5 		strb	r5, [r2, #2]
+  16:../main.c     ****             m[i][j].R = lena128[(i*M + j)*3];
+ 2032              		.loc 1 16 0 discriminator 2
+ 2033 0034 03C0D3E5 		ldrb	ip, [r3, #3]	@ zero_extendqisi2
+ 2034 0038 0420A0E1 		mov	r2, r4
+ 2035              		.loc 1 18 0 discriminator 2
+ 2036 003c 035081E2 		add	r5, r1, #3
+  16:../main.c     ****             m[i][j].R = lena128[(i*M + j)*3];
+ 2037              		.loc 1 16 0 discriminator 2
+ 2038 0040 05C0E2E7 		strb	ip, [r2, r5]!
+  17:../main.c     ****             m[i][j].G = lena128[(i*M + j)*3 + 1];
+ 2039              		.loc 1 17 0 discriminator 2
+ 2040 0044 0450D3E5 		ldrb	r5, [r3, #4]	@ zero_extendqisi2
+ 2041 0048 0150C2E5 		strb	r5, [r2, #1]
+ 2042              		.loc 1 18 0 discriminator 2
+ 2043 004c 061081E2 		add	r1, r1, #6
+ 2044 0050 05C0D3E5 		ldrb	ip, [r3, #5]	@ zero_extendqisi2
+  15:../main.c     ****         for (j=0; j<M; j++) {
+ 2045              		.loc 1 15 0 discriminator 2
+ 2046 0054 060D51E3 		cmp	r1, #384
+ 2047              		.loc 1 18 0 discriminator 2
+ 2048 0058 02C0C2E5 		strb	ip, [r2, #2]
+ 2049 005c 063083E2 		add	r3, r3, #6
+  15:../main.c     ****         for (j=0; j<M; j++) {
+ 2050              		.loc 1 15 0 discriminator 2
+ 2051 0060 ECFFFF1A 		bne	.L3
+  15:../main.c     ****         for (j=0; j<M; j++) {
+ 2052              		.loc 1 15 0 is_stmt 0
+ 2053 0064 066D86E2 		add	r6, r6, #384
+  14:../main.c     ****     for (i=0;i<N;i++)
+ 2054              		.loc 1 14 0 is_stmt 1
+ 2055 0068 030956E3 		cmp	r6, #49152
+ 2056 006c E6FFFF1A 		bne	.L2
+  19:../main.c     ****         }
+  20:../main.c     **** }
+ 2057              		.loc 1 20 0
+ 2058 0070 F000BDE8 		ldmfd	sp!, {r4, r5, r6, r7}
+ 2059 0074 1EFF2FE1 		bx	lr
+ 2060              	.L9:
+ 2061              		.align	2
+ 2062              	.L8:
+ 2063 0078 00000000 		.word	lena128
+ 2064              		.cfi_endproc
+ 2065              	.LFE0:
+ 2067              		.align	2
+ 2068              		.global	main
+ 2070              	main:
+ 2071              	.LFB1:
+  21:../main.c     **** 
+  22:../main.c     **** int main(void) {
+ 2072              		.loc 1 22 0
+ 2073              		.cfi_startproc
+ 2074              		@ Function supports interworking.
+ 2075              		@ args = 0, pretend = 0, frame = 0
+ 2076              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2077 007c 0DC0A0E1 		mov	ip, sp
+ 2078              	.LCFI1:
+ 2079              		.cfi_def_cfa_register 12
+ 2080 0080 78D82DE9 		stmfd	sp!, {r3, r4, r5, r6, fp, ip, lr, pc}
+  23:../main.c     ****     // 1. Crear una matriz NxM a partir del array lena128
+  24:../main.c     ****     initRGB(imagenRGB);
+ 2081              		.loc 1 24 0
+ 2082 0084 44609FE5 		ldr	r6, .L11
+ 2083              		.cfi_offset 14, -8
+ 2084              		.cfi_offset 13, -12
+ 2085              		.cfi_offset 11, -16
+ 2086              		.cfi_offset 6, -20
+ 2087              		.cfi_offset 5, -24
+ 2088              		.cfi_offset 4, -28
+ 2089              		.cfi_offset 3, -32
+  25:../main.c     **** 
+  26:../main.c     ****     // 2. Transformar la matriz RGB a una matriz de grises
+  27:../main.c     ****     RGB2GrayMatrix(imagenRGB,imagenGris);
+ 2090              		.loc 1 27 0
+ 2091 0088 44509FE5 		ldr	r5, .L11+4
+  22:../main.c     **** int main(void) {
+ 2092              		.loc 1 22 0
+ 2093 008c 04B04CE2 		sub	fp, ip, #4
+ 2094              	.LCFI2:
+ 2095              		.cfi_def_cfa 11, 4
+  24:../main.c     ****     initRGB(imagenRGB);
+ 2096              		.loc 1 24 0
+ 2097 0090 0600A0E1 		mov	r0, r6
+  28:../main.c     **** 
+  29:../main.c     ****     // 3. Transformar la matriz de grises a una matriz en blanco y negro
+  30:../main.c     ****     Gray2BinaryMatrix(imagenGris,imagenBinaria);
+ 2098              		.loc 1 30 0
+ 2099 0094 3C409FE5 		ldr	r4, .L11+8
+  24:../main.c     ****     initRGB(imagenRGB);
+ 2100              		.loc 1 24 0
+ 2101 0098 FEFFFFEB 		bl	initRGB
+  27:../main.c     ****     RGB2GrayMatrix(imagenRGB,imagenGris);
+ 2102              		.loc 1 27 0
+ 2103 009c 0600A0E1 		mov	r0, r6
+ 2104 00a0 0510A0E1 		mov	r1, r5
+ 2105 00a4 FEFFFFEB 		bl	RGB2GrayMatrix
+ 2106              		.loc 1 30 0
+ 2107 00a8 0410A0E1 		mov	r1, r4
+ 2108 00ac 0500A0E1 		mov	r0, r5
+ 2109 00b0 FEFFFFEB 		bl	Gray2BinaryMatrix
+  31:../main.c     **** 
+  32:../main.c     ****     // 4. Contar los blancos que aparecen por filas en imagenBinaria
+  33:../main.c     ****     contarBlancos(imagenBinaria,blancosPorFila);
+ 2110              		.loc 1 33 0
+ 2111 00b4 0400A0E1 		mov	r0, r4
+ 2112 00b8 1C109FE5 		ldr	r1, .L11+12
+ 2113 00bc FEFFFFEB 		bl	contarBlancos
+  34:../main.c     **** 
+  35:../main.c     ****     return 0;
+  36:../main.c     **** }
+ 2114              		.loc 1 36 0
+ 2115 00c0 0000A0E3 		mov	r0, #0
+ 2116 00c4 1CD04BE2 		sub	sp, fp, #28
+ 2117 00c8 78689DE8 		ldmfd	sp, {r3, r4, r5, r6, fp, sp, lr}
+ 2118 00cc 1EFF2FE1 		bx	lr
+ 2119              	.L12:
+ 2120              		.align	2
+ 2121              	.L11:
+ 2122 00d0 00000000 		.word	imagenRGB
+ 2123 00d4 00000000 		.word	imagenGris
+ 2124 00d8 00000000 		.word	imagenBinaria
+ 2125 00dc 00000000 		.word	blancosPorFila
+ 2126              		.cfi_endproc
+ 2127              	.LFE1:
+ 2129              		.comm	imagenRGB,49152,4
+ 2130              		.comm	imagenGris,16384,4
+ 2131              		.comm	imagenBinaria,16384,4
+ 2132              		.comm	blancosPorFila,128,4
+ 2133              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\victo\AppData\Local\Temp\ccgITKy6.s:1992   .text:00000000 $a
+C:\Users\victo\AppData\Local\Temp\ccgITKy6.s:1995   .text:00000000 initRGB
+C:\Users\victo\AppData\Local\Temp\ccgITKy6.s:2063   .text:00000078 $d
+C:\Users\victo\AppData\Local\Temp\ccgITKy6.s:2067   .text:0000007c $a
+C:\Users\victo\AppData\Local\Temp\ccgITKy6.s:2070   .text:0000007c main
+C:\Users\victo\AppData\Local\Temp\ccgITKy6.s:2122   .text:000000d0 $d
+                            *COM*:0000c000 imagenRGB
+                            *COM*:00004000 imagenGris
+                            *COM*:00004000 imagenBinaria
+                            *COM*:00000080 blancosPorFila
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+lena128
+RGB2GrayMatrix
+Gray2BinaryMatrix
+contarBlancos

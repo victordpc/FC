@@ -1,0 +1,505 @@
+
+Practica4Original.elf:     file format elf32-littlearm
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         0000c000  0c000000  0c000000  00008000  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .bss          00014080  0c00c000  0c00c000  00014000  2**2
+                  ALLOC
+  2 .text         00000278  0c020080  0c020080  00018080  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  3 .ARM.attributes 0000002e  00000000  00000000  000182f8  2**0
+                  CONTENTS, READONLY
+  4 .comment      0000002a  00000000  00000000  00018326  2**0
+                  CONTENTS, READONLY
+  5 .debug_line   00000501  00000000  00000000  00018350  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000004d5  00000000  00000000  00018851  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000216  00000000  00000000  00018d26  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_aranges 00000080  00000000  00000000  00018f40  2**3
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_macinfo 00008da8  00000000  00000000  00018fc0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_pubnames 000000d4  00000000  00000000  00021d68  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_str    00000150  00000000  00000000  00021e3c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_loc    000001fd  00000000  00000000  00021f8c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_pubtypes 00000060  00000000  00000000  00022189  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_frame  000000d8  00000000  00000000  000221ec  2**2
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+0c020080 <start>:
+    .extern main
+    .extern _stack
+	.global start
+
+start:
+    ldr sp,=_stack
+ c020080:	e59fd008 	ldr	sp, [pc, #8]	; c020090 <End+0x4>
+    mov fp,#0
+ c020084:	e3a0b000 	mov	fp, #0
+    
+    bl main
+ c020088:	eb000020 	bl	c020110 <main>
+
+0c02008c <End>:
+
+End:
+    B End
+ c02008c:	eafffffe 	b	c02008c <End>
+ c020090:	0c7ff000 	.word	0x0c7ff000
+
+0c020094 <initRGB>:
+pixelRGB imagenRGB[N][M];
+unsigned char imagenGris[N][M];
+unsigned char imagenBinaria[N][M];
+unsigned char blancosPorFila[N];
+
+void initRGB(pixelRGB m[N][M]) {
+ c020094:	e92d00f0 	push	{r4, r5, r6, r7}
+ c020098:	e59f706c 	ldr	r7, [pc, #108]	; c02010c <initRGB+0x78>
+ c02009c:	e3a06000 	mov	r6, #0
+ c0200a0:	e0804006 	add	r4, r0, r6
+ c0200a4:	e0873006 	add	r3, r7, r6
+ c0200a8:	e3a01000 	mov	r1, #0
+    int i,j;
+
+    for (i=0;i<N;i++)
+        for (j=0; j<M; j++) {
+            m[i][j].R = lena128[(i*M + j)*3];
+ c0200ac:	e5d35000 	ldrb	r5, [r3]
+ c0200b0:	e1a02004 	mov	r2, r4
+ c0200b4:	e7e25001 	strb	r5, [r2, r1]!
+            m[i][j].G = lena128[(i*M + j)*3 + 1];
+ c0200b8:	e5d3c001 	ldrb	ip, [r3, #1]
+ c0200bc:	e5c2c001 	strb	ip, [r2, #1]
+            m[i][j].B = lena128[(i*M + j)*3 + 2];
+ c0200c0:	e5d35002 	ldrb	r5, [r3, #2]
+ c0200c4:	e5c25002 	strb	r5, [r2, #2]
+void initRGB(pixelRGB m[N][M]) {
+    int i,j;
+
+    for (i=0;i<N;i++)
+        for (j=0; j<M; j++) {
+            m[i][j].R = lena128[(i*M + j)*3];
+ c0200c8:	e5d3c003 	ldrb	ip, [r3, #3]
+ c0200cc:	e1a02004 	mov	r2, r4
+            m[i][j].G = lena128[(i*M + j)*3 + 1];
+            m[i][j].B = lena128[(i*M + j)*3 + 2];
+ c0200d0:	e2815003 	add	r5, r1, #3
+void initRGB(pixelRGB m[N][M]) {
+    int i,j;
+
+    for (i=0;i<N;i++)
+        for (j=0; j<M; j++) {
+            m[i][j].R = lena128[(i*M + j)*3];
+ c0200d4:	e7e2c005 	strb	ip, [r2, r5]!
+            m[i][j].G = lena128[(i*M + j)*3 + 1];
+ c0200d8:	e5d35004 	ldrb	r5, [r3, #4]
+ c0200dc:	e5c25001 	strb	r5, [r2, #1]
+            m[i][j].B = lena128[(i*M + j)*3 + 2];
+ c0200e0:	e2811006 	add	r1, r1, #6
+ c0200e4:	e5d3c005 	ldrb	ip, [r3, #5]
+
+void initRGB(pixelRGB m[N][M]) {
+    int i,j;
+
+    for (i=0;i<N;i++)
+        for (j=0; j<M; j++) {
+ c0200e8:	e3510d06 	cmp	r1, #384	; 0x180
+            m[i][j].R = lena128[(i*M + j)*3];
+            m[i][j].G = lena128[(i*M + j)*3 + 1];
+            m[i][j].B = lena128[(i*M + j)*3 + 2];
+ c0200ec:	e5c2c002 	strb	ip, [r2, #2]
+ c0200f0:	e2833006 	add	r3, r3, #6
+
+void initRGB(pixelRGB m[N][M]) {
+    int i,j;
+
+    for (i=0;i<N;i++)
+        for (j=0; j<M; j++) {
+ c0200f4:	1affffec 	bne	c0200ac <initRGB+0x18>
+ c0200f8:	e2866d06 	add	r6, r6, #384	; 0x180
+unsigned char blancosPorFila[N];
+
+void initRGB(pixelRGB m[N][M]) {
+    int i,j;
+
+    for (i=0;i<N;i++)
+ c0200fc:	e3560903 	cmp	r6, #49152	; 0xc000
+ c020100:	1affffe6 	bne	c0200a0 <initRGB+0xc>
+        for (j=0; j<M; j++) {
+            m[i][j].R = lena128[(i*M + j)*3];
+            m[i][j].G = lena128[(i*M + j)*3 + 1];
+            m[i][j].B = lena128[(i*M + j)*3 + 2];
+        }
+}
+ c020104:	e8bd00f0 	pop	{r4, r5, r6, r7}
+ c020108:	e12fff1e 	bx	lr
+ c02010c:	0c000000 	.word	0x0c000000
+
+0c020110 <main>:
+
+int main(void) {
+ c020110:	e1a0c00d 	mov	ip, sp
+ c020114:	e92dd878 	push	{r3, r4, r5, r6, fp, ip, lr, pc}
+    // 1. Crear una matriz NxM a partir del array lena128
+    initRGB(imagenRGB);
+ c020118:	e59f6044 	ldr	r6, [pc, #68]	; c020164 <main+0x54>
+
+    // 2. Transformar la matriz RGB a una matriz de grises
+    RGB2GrayMatrix(imagenRGB,imagenGris);
+ c02011c:	e59f5044 	ldr	r5, [pc, #68]	; c020168 <main+0x58>
+            m[i][j].G = lena128[(i*M + j)*3 + 1];
+            m[i][j].B = lena128[(i*M + j)*3 + 2];
+        }
+}
+
+int main(void) {
+ c020120:	e24cb004 	sub	fp, ip, #4
+    // 1. Crear una matriz NxM a partir del array lena128
+    initRGB(imagenRGB);
+ c020124:	e1a00006 	mov	r0, r6
+
+    // 2. Transformar la matriz RGB a una matriz de grises
+    RGB2GrayMatrix(imagenRGB,imagenGris);
+
+    // 3. Transformar la matriz de grises a una matriz en blanco y negro
+    Gray2BinaryMatrix(imagenGris,imagenBinaria);
+ c020128:	e59f403c 	ldr	r4, [pc, #60]	; c02016c <main+0x5c>
+        }
+}
+
+int main(void) {
+    // 1. Crear una matriz NxM a partir del array lena128
+    initRGB(imagenRGB);
+ c02012c:	ebffffd8 	bl	c020094 <initRGB>
+
+    // 2. Transformar la matriz RGB a una matriz de grises
+    RGB2GrayMatrix(imagenRGB,imagenGris);
+ c020130:	e1a00006 	mov	r0, r6
+ c020134:	e1a01005 	mov	r1, r5
+ c020138:	eb000018 	bl	c0201a0 <RGB2GrayMatrix>
+
+    // 3. Transformar la matriz de grises a una matriz en blanco y negro
+    Gray2BinaryMatrix(imagenGris,imagenBinaria);
+ c02013c:	e1a01004 	mov	r1, r4
+ c020140:	e1a00005 	mov	r0, r5
+ c020144:	eb000036 	bl	c020224 <Gray2BinaryMatrix>
+
+    // 4. Contar los blancos que aparecen por filas en imagenBinaria
+    contarBlancos(imagenBinaria,blancosPorFila);
+ c020148:	e1a00004 	mov	r0, r4
+ c02014c:	e59f101c 	ldr	r1, [pc, #28]	; c020170 <main+0x60>
+ c020150:	eb00004b 	bl	c020284 <contarBlancos>
+
+    return 0;
+}
+ c020154:	e3a00000 	mov	r0, #0
+ c020158:	e24bd01c 	sub	sp, fp, #28
+ c02015c:	e89d6878 	ldm	sp, {r3, r4, r5, r6, fp, sp, lr}
+ c020160:	e12fff1e 	bx	lr
+ c020164:	0c00c000 	.word	0x0c00c000
+ c020168:	0c01c080 	.word	0x0c01c080
+ c02016c:	0c018000 	.word	0x0c018000
+ c020170:	0c01c000 	.word	0x0c01c000
+
+0c020174 <rgb2gray>:
+	.equ COEF3, 1183
+
+	.text
+
+rgb2gray:
+  		ldr r3, =COEF1
+ c020174:	e59f3018 	ldr	r3, [pc, #24]	; c020194 <rgb2gray+0x20>
+  		mul r0, r3, r0
+ c020178:	e0000093 	mul	r0, r3, r0
+  		ldr r3, =COEF2
+ c02017c:	e59f3014 	ldr	r3, [pc, #20]	; c020198 <rgb2gray+0x24>
+  		mla r0, r3, r1, r0
+ c020180:	e0200193 	mla	r0, r3, r1, r0
+  		ldr r3, =COEF3
+ c020184:	e59f3010 	ldr	r3, [pc, #16]	; c02019c <rgb2gray+0x28>
+  		mla r0, r3, r2, r0
+ c020188:	e0200293 	mla	r0, r3, r2, r0
+  		mov r0, r0, lsr #14
+ c02018c:	e1a00720 	lsr	r0, r0, #14
+
+  		mov pc, lr
+ c020190:	e1a0f00e 	mov	pc, lr
+ c020194:	00000d9b 	.word	0x00000d9b
+ c020198:	00002dc6 	.word	0x00002dc6
+ c02019c:	0000049f 	.word	0x0000049f
+
+0c0201a0 <RGB2GrayMatrix>:
+//Las funciones que se definan en ensamblador debrán borrarse de este fichero
+// o comentarse. De otra manera habría dos definciones de la misma función
+//-----------------------------------------------------------------------------------
+
+
+void RGB2GrayMatrix(pixelRGB orig[N][M], unsigned char dest[N][M]) {
+ c0201a0:	e1a0c00d 	mov	ip, sp
+ c0201a4:	e92dddf0 	push	{r4, r5, r6, r7, r8, sl, fp, ip, lr, pc}
+ c0201a8:	e24cb004 	sub	fp, ip, #4
+ c0201ac:	e1a08001 	mov	r8, r1
+ c0201b0:	e1a05000 	mov	r5, r0
+ c0201b4:	e3a0a080 	mov	sl, #128	; 0x80
+ c0201b8:	e1a07008 	mov	r7, r8
+ c0201bc:	e3a04000 	mov	r4, #0
+ c0201c0:	e0856004 	add	r6, r5, r4
+    int i,j;
+    
+    for (i=0;i<N;i++)
+        for (j=0; j<M; j++)
+            dest[i][j] =  rgb2gray(orig[i][j].R, orig[i][j].G, orig[i][j].B);
+ c0201c4:	e5d61001 	ldrb	r1, [r6, #1]
+ c0201c8:	e5d62002 	ldrb	r2, [r6, #2]
+ c0201cc:	e7d50004 	ldrb	r0, [r5, r4]
+ c0201d0:	ebffffe7 	bl	c020174 <rgb2gray>
+ c0201d4:	e1a06007 	mov	r6, r7
+ c0201d8:	e4c60001 	strb	r0, [r6], #1
+ c0201dc:	e2842003 	add	r2, r4, #3
+//Las funciones que se definan en ensamblador debrán borrarse de este fichero
+// o comentarse. De otra manera habría dos definciones de la misma función
+//-----------------------------------------------------------------------------------
+
+
+void RGB2GrayMatrix(pixelRGB orig[N][M], unsigned char dest[N][M]) {
+ c0201e0:	e0853002 	add	r3, r5, r2
+    int i,j;
+    
+    for (i=0;i<N;i++)
+        for (j=0; j<M; j++)
+            dest[i][j] =  rgb2gray(orig[i][j].R, orig[i][j].G, orig[i][j].B);
+ c0201e4:	e7d50002 	ldrb	r0, [r5, r2]
+ c0201e8:	e5d31001 	ldrb	r1, [r3, #1]
+ c0201ec:	e5d32002 	ldrb	r2, [r3, #2]
+ c0201f0:	ebffffdf 	bl	c020174 <rgb2gray>
+ c0201f4:	e2844006 	add	r4, r4, #6
+
+void RGB2GrayMatrix(pixelRGB orig[N][M], unsigned char dest[N][M]) {
+    int i,j;
+    
+    for (i=0;i<N;i++)
+        for (j=0; j<M; j++)
+ c0201f8:	e3540d06 	cmp	r4, #384	; 0x180
+            dest[i][j] =  rgb2gray(orig[i][j].R, orig[i][j].G, orig[i][j].B);
+ c0201fc:	e5c70001 	strb	r0, [r7, #1]
+ c020200:	e2867001 	add	r7, r6, #1
+
+void RGB2GrayMatrix(pixelRGB orig[N][M], unsigned char dest[N][M]) {
+    int i,j;
+    
+    for (i=0;i<N;i++)
+        for (j=0; j<M; j++)
+ c020204:	1affffed 	bne	c0201c0 <RGB2GrayMatrix+0x20>
+
+
+void RGB2GrayMatrix(pixelRGB orig[N][M], unsigned char dest[N][M]) {
+    int i,j;
+    
+    for (i=0;i<N;i++)
+ c020208:	e25aa001 	subs	sl, sl, #1
+        for (j=0; j<M; j++)
+ c02020c:	e2888080 	add	r8, r8, #128	; 0x80
+ c020210:	e2855d06 	add	r5, r5, #384	; 0x180
+
+
+void RGB2GrayMatrix(pixelRGB orig[N][M], unsigned char dest[N][M]) {
+    int i,j;
+    
+    for (i=0;i<N;i++)
+ c020214:	1affffe7 	bne	c0201b8 <RGB2GrayMatrix+0x18>
+        for (j=0; j<M; j++)
+            dest[i][j] =  rgb2gray(orig[i][j].R, orig[i][j].G, orig[i][j].B);
+    
+}
+ c020218:	e24bd024 	sub	sp, fp, #36	; 0x24
+ c02021c:	e89d6df0 	ldm	sp, {r4, r5, r6, r7, r8, sl, fp, sp, lr}
+ c020220:	e12fff1e 	bx	lr
+
+0c020224 <Gray2BinaryMatrix>:
+
+void Gray2BinaryMatrix(unsigned char orig[N][M], unsigned char dest[N][M]) {
+ c020224:	e92d00f0 	push	{r4, r5, r6, r7}
+    for (i=0;i<N;i++)
+        for (j=0; j<M; j++)
+            if (orig[i][j] > umbral)
+                dest[i][j]=255;
+            else
+                 dest[i][j]=0;
+ c020228:	e3a0c000 	mov	ip, #0
+        for (j=0; j<M; j++)
+            dest[i][j] =  rgb2gray(orig[i][j].R, orig[i][j].G, orig[i][j].B);
+    
+}
+
+void Gray2BinaryMatrix(unsigned char orig[N][M], unsigned char dest[N][M]) {
+ c02022c:	e2817901 	add	r7, r1, #16384	; 0x4000
+    int umbral = 127;
+    
+    for (i=0;i<N;i++)
+        for (j=0; j<M; j++)
+            if (orig[i][j] > umbral)
+                dest[i][j]=255;
+ c020230:	e3e02000 	mvn	r2, #0
+
+void Gray2BinaryMatrix(unsigned char orig[N][M], unsigned char dest[N][M]) {
+    int i,j;
+    int umbral = 127;
+    
+    for (i=0;i<N;i++)
+ c020234:	e2816080 	add	r6, r1, #128	; 0x80
+        for (j=0; j<M; j++)
+            dest[i][j] =  rgb2gray(orig[i][j].R, orig[i][j].G, orig[i][j].B);
+    
+}
+
+void Gray2BinaryMatrix(unsigned char orig[N][M], unsigned char dest[N][M]) {
+ c020238:	e1a03000 	mov	r3, r0
+    int i,j;
+    int umbral = 127;
+    
+    for (i=0;i<N;i++)
+        for (j=0; j<M; j++)
+            if (orig[i][j] > umbral)
+ c02023c:	e4d35001 	ldrb	r5, [r3], #1
+                dest[i][j]=255;
+ c020240:	e3550080 	cmp	r5, #128	; 0x80
+ c020244:	b1a0400c 	movlt	r4, ip
+ c020248:	a1a04002 	movge	r4, r2
+ c02024c:	e5c14000 	strb	r4, [r1]
+    int i,j;
+    int umbral = 127;
+    
+    for (i=0;i<N;i++)
+        for (j=0; j<M; j++)
+            if (orig[i][j] > umbral)
+ c020250:	e4d34001 	ldrb	r4, [r3], #1
+                dest[i][j]=255;
+ c020254:	e3540080 	cmp	r4, #128	; 0x80
+ c020258:	b1a0500c 	movlt	r5, ip
+ c02025c:	a1a05002 	movge	r5, r2
+ c020260:	e5c15001 	strb	r5, [r1, #1]
+            else
+                 dest[i][j]=0;
+ c020264:	e2811002 	add	r1, r1, #2
+void Gray2BinaryMatrix(unsigned char orig[N][M], unsigned char dest[N][M]) {
+    int i,j;
+    int umbral = 127;
+    
+    for (i=0;i<N;i++)
+        for (j=0; j<M; j++)
+ c020268:	e1510006 	cmp	r1, r6
+ c02026c:	1afffff2 	bne	c02023c <Gray2BinaryMatrix+0x18>
+
+void Gray2BinaryMatrix(unsigned char orig[N][M], unsigned char dest[N][M]) {
+    int i,j;
+    int umbral = 127;
+    
+    for (i=0;i<N;i++)
+ c020270:	e1570006 	cmp	r7, r6
+        for (j=0; j<M; j++)
+ c020274:	e2800080 	add	r0, r0, #128	; 0x80
+
+void Gray2BinaryMatrix(unsigned char orig[N][M], unsigned char dest[N][M]) {
+    int i,j;
+    int umbral = 127;
+    
+    for (i=0;i<N;i++)
+ c020278:	1affffed 	bne	c020234 <Gray2BinaryMatrix+0x10>
+            if (orig[i][j] > umbral)
+                dest[i][j]=255;
+            else
+                 dest[i][j]=0;
+    
+}
+ c02027c:	e8bd00f0 	pop	{r4, r5, r6, r7}
+ c020280:	e12fff1e 	bx	lr
+
+0c020284 <contarBlancos>:
+
+    
+}*/
+
+
+void contarBlancos(unsigned char mat[N][M], unsigned char vector[N]) {
+ c020284:	e52d4004 	push	{r4}		; (str r4, [sp, #-4]!)
+    int i,j;
+
+    for (i=0;i<N;i++) {
+        vector[i]=0;
+ c020288:	e3a0c000 	mov	ip, #0
+
+    
+}*/
+
+
+void contarBlancos(unsigned char mat[N][M], unsigned char vector[N]) {
+ c02028c:	e2814080 	add	r4, r1, #128	; 0x80
+    int i,j;
+
+    for (i=0;i<N;i++) {
+        vector[i]=0;
+ c020290:	e4c1c001 	strb	ip, [r1], #1
+        for (j=0; j<M; j++) {
+ c020294:	e3a03000 	mov	r3, #0
+ c020298:	ea000002 	b	c0202a8 <contarBlancos+0x24>
+ c02029c:	e2823001 	add	r3, r2, #1
+ c0202a0:	e3530080 	cmp	r3, #128	; 0x80
+ c0202a4:	0a00000e 	beq	c0202e4 <contarBlancos+0x60>
+ c0202a8:	e2832001 	add	r2, r3, #1
+            if ( mat[i][j] == 255) vector[i]++;
+ c0202ac:	e7d03003 	ldrb	r3, [r0, r3]
+ c0202b0:	e35300ff 	cmp	r3, #255	; 0xff
+ c0202b4:	05513001 	ldrbeq	r3, [r1, #-1]
+ c0202b8:	02833001 	addeq	r3, r3, #1
+ c0202bc:	05413001 	strbeq	r3, [r1, #-1]
+ c0202c0:	e7d03002 	ldrb	r3, [r0, r2]
+ c0202c4:	e35300ff 	cmp	r3, #255	; 0xff
+ c0202c8:	1afffff3 	bne	c02029c <contarBlancos+0x18>
+ c0202cc:	e5513001 	ldrb	r3, [r1, #-1]
+ c0202d0:	e2833001 	add	r3, r3, #1
+ c0202d4:	e5413001 	strb	r3, [r1, #-1]
+void contarBlancos(unsigned char mat[N][M], unsigned char vector[N]) {
+    int i,j;
+
+    for (i=0;i<N;i++) {
+        vector[i]=0;
+        for (j=0; j<M; j++) {
+ c0202d8:	e2823001 	add	r3, r2, #1
+ c0202dc:	e3530080 	cmp	r3, #128	; 0x80
+ c0202e0:	1afffff0 	bne	c0202a8 <contarBlancos+0x24>
+
+
+void contarBlancos(unsigned char mat[N][M], unsigned char vector[N]) {
+    int i,j;
+
+    for (i=0;i<N;i++) {
+ c0202e4:	e1510004 	cmp	r1, r4
+        vector[i]=0;
+        for (j=0; j<M; j++) {
+ c0202e8:	e2800080 	add	r0, r0, #128	; 0x80
+
+
+void contarBlancos(unsigned char mat[N][M], unsigned char vector[N]) {
+    int i,j;
+
+    for (i=0;i<N;i++) {
+ c0202ec:	1affffe7 	bne	c020290 <contarBlancos+0xc>
+        vector[i]=0;
+        for (j=0; j<M; j++) {
+            if ( mat[i][j] == 255) vector[i]++;
+        }
+    }
+}
+ c0202f0:	e49d4004 	pop	{r4}		; (ldr r4, [sp], #4)
+ c0202f4:	e12fff1e 	bx	lr

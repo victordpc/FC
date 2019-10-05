@@ -1,0 +1,92 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD ./Practica1.o
+LOAD ./Practica1aModif_1.o
+LOAD ./Practica1aModif_2.o
+LOAD ./Practica1b.o
+LOAD ./Practica1bModif_3.o
+LOAD ./Practica1bModif_4.o
+START GROUP
+LOAD c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2\libgcc.a
+LOAD c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/lib\libc.a
+END GROUP
+                0x0c000000                . = 0xc000000
+
+.data           0x0c000000        0x8
+ *(.data)
+ .data          0x0c000000        0x8 ./Practica1.o
+ .data          0x0c000008        0x0 ./Practica1aModif_1.o
+ .data          0x0c000008        0x0 ./Practica1aModif_2.o
+ .data          0x0c000008        0x0 ./Practica1b.o
+ .data          0x0c000008        0x0 ./Practica1bModif_3.o
+ .data          0x0c000008        0x0 ./Practica1bModif_4.o
+ *(.rodata)
+
+.bss            0x0c000008        0x4
+ *(.bss)
+ .bss           0x0c000008        0x4 ./Practica1.o
+ .bss           0x0c00000c        0x0 ./Practica1aModif_1.o
+ .bss           0x0c00000c        0x0 ./Practica1aModif_2.o
+ .bss           0x0c00000c        0x0 ./Practica1b.o
+ .bss           0x0c00000c        0x0 ./Practica1bModif_3.o
+ .bss           0x0c00000c        0x0 ./Practica1bModif_4.o
+ *(COMMON)
+
+.text           0x0c00000c       0x38
+ *(.text)
+ .text          0x0c00000c       0x38 ./Practica1.o
+                0x0c00000c                start
+ .text          0x0c000044        0x0 ./Practica1aModif_1.o
+ .text          0x0c000044        0x0 ./Practica1aModif_2.o
+ .text          0x0c000044        0x0 ./Practica1b.o
+ .text          0x0c000044        0x0 ./Practica1bModif_3.o
+ .text          0x0c000044        0x0 ./Practica1bModif_4.o
+                0x0c000044                PROVIDE (end, .)
+                0x0c7ff000                PROVIDE (_stack, 0xc7ff000)
+OUTPUT(Practica1.elf elf32-littlearm)
+
+.glue_7         0x0c000044        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x0c000044        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x0c000044        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x0c000044        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.ARM.attributes
+                0x00000000       0x22
+ .ARM.attributes
+                0x00000000       0x22 ./Practica1.o
+ .ARM.attributes
+                0x00000022       0x22 ./Practica1aModif_1.o
+ .ARM.attributes
+                0x00000044       0x22 ./Practica1aModif_2.o
+ .ARM.attributes
+                0x00000066       0x22 ./Practica1b.o
+ .ARM.attributes
+                0x00000088       0x22 ./Practica1bModif_3.o
+ .ARM.attributes
+                0x000000aa       0x22 ./Practica1bModif_4.o
+
+.debug_line     0x00000000       0x48
+ .debug_line    0x00000000       0x48 ./Practica1.o
+
+.debug_info     0x00000000       0x60
+ .debug_info    0x00000000       0x60 ./Practica1.o
+
+.debug_abbrev   0x00000000       0x14
+ .debug_abbrev  0x00000000       0x14 ./Practica1.o
+
+.debug_aranges  0x00000000       0x20
+ .debug_aranges
+                0x00000000       0x20 ./Practica1.o

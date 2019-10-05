@@ -1,0 +1,74 @@
+   1              	# 1 "../Practica3b.asm"
+   1              	/*51458991-X*/
+   0              	
+   0              	
+   0              	
+   2              	.extern _stack
+   3              	.global start
+   4              	.equ longA, 8
+   5              	.data
+   6 0000 07000000 	A: .word 7, 3, 25, 4, 75, 2, 1, 1
+   6      03000000 
+   6      19000000 
+   6      04000000 
+   6      4B000000 
+   7              	.bss
+   8 0000 00000000 	B:	 .space longA*4
+   8      00000000 
+   8      00000000 
+   8      00000000 
+   8      00000000 
+   9              	.text
+  10              	start:
+  11 0000 4CD09FE5 			LDR SP, =_stack		/*	Carga en SP de la pila de llamadas			*/
+  12 0004 00B0A0E3 			MOV FP, #0			/*	Marca para FP								*/
+  13 0008 48109FE5 			LDR R1, =A			/*	Carga de direccion de memoria de A en R1	*/
+  14 000c 0820A0E3 			MOV R2, #longA		/*	Carga de valor longA en R2					*/
+  15 0010 0030A0E3 			MOV R3, #0
+  16              	
+  17 0014 40409FE5 			LDR R4, =B			/*	R4 B	*/
+  18              	
+  19 0018 0050A0E3 			MOV R5, #0			/*	R5 j=0	*/
+  20 001c 080055E3 	forJ:	CMP R5, #longA			/*	Comparamos para salir de forJ	*/
+  21 0020 0A00000A 			BEQ	finJ
+  22              	
+  23 0024 0000A0E3 			MOV R0, #0
+  24              	
+  25 0028 FEFFFFEB 			BL MAX
+  26              	
+  27              	
+  28 002c 24109FE5 			LDR R1, =A			/*	Carga de direccion de memoria de A en R1	*/
+  29 0030 0820A0E3 			MOV R2, #longA		/*	Carga de valor longA en R2					*/
+  30 0034 0030A0E3 			MOV R3, #0
+  31              	
+  32              	
+  33 0038 006191E7 			LDR R6, [R1, R0, LSL #2]	/*	Recuperamos A[ind]	*/
+  34 003c 056184E7 			STR R6, [R4, R5, LSL #2]	/*	Guardamos B[j] = A[ind]	*/
+  35              	
+  36 0040 003181E7 			STR R3, [R1, R0, LSL #2]	/*	Guardamos A[ind]=0	*/
+  37 0044 0000A0E3 			MOV R0, #0
+  38              	
+  39 0048 015085E2 			ADD R5, #1
+  40 004c F2FFFFEA 			B forJ
+  41              	
+  42              	finJ:
+  43 0050 FEFFFFEA 	fin:	B .
+  44 0054 00000000 			.end
+  44      00000000 
+  44      00000000 
+DEFINED SYMBOLS
+   ../Practica3b.asm:10     .text:00000000 start
+   ../Practica3b.asm:4      *ABS*:00000008 longA
+   ../Practica3b.asm:6      .data:00000000 A
+   ../Practica3b.asm:8      .bss:00000000 B
+   ../Practica3b.asm:8      .bss:00000000 $d
+   ../Practica3b.asm:11     .text:00000000 $a
+   ../Practica3b.asm:20     .text:0000001c forJ
+   ../Practica3b.asm:42     .text:00000050 finJ
+   ../Practica3b.asm:43     .text:00000050 fin
+   ../Practica3b.asm:44     .text:00000054 $d
+                   .debug_aranges:0000000c $d
+
+UNDEFINED SYMBOLS
+_stack
+MAX

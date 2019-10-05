@@ -1,0 +1,104 @@
+   1              	# 1 "../Practica3b.asm"
+   1              	/*51458991-X*/
+   0              	
+   0              	
+   0              	
+   2              	.extern _stack
+   3              	.global start
+   4              	.equ longA, 8
+   5              	.data
+   6 0000 07000000 	A: .word 7, 3, 25, 4, 75, 2, 1, 1
+   6      03000000 
+   6      19000000 
+   6      04000000 
+   6      4B000000 
+   7              	.bss
+   8 0000 00000000 	B:	 .space longA*4
+   8      00000000 
+   8      00000000 
+   8      00000000 
+   8      00000000 
+   9              	.text
+  10              	start:
+  11 0000 8CD09FE5 			LDR SP, =_stack		/*	Carga en SP de la pila de llamadas			*/
+  12 0004 00B0A0E3 			MOV FP, #0			/*	Marca para FP								*/
+  13 0008 88109FE5 			LDR R1, =A			/*	Carga de direccion de memoria de A en R1	*/
+  14 000c 0820A0E3 			MOV R2, #longA		/*	Carga de valor longA en R2					*/
+  15 0010 0030A0E3 			MOV R3, #0
+  16              	
+  17 0014 80409FE5 			LDR R4, =B			/*	R4 B	*/
+  18              	
+  19 0018 0050A0E3 			MOV R5, #0			/*	R5 j=0	*/
+  20 001c 080055E3 	forJ:	CMP R5, #longA			/*	Comparamos para salir de forJ	*/
+  21 0020 0A00000A 			BEQ	finJ
+  22              	
+  23 0024 0000A0E3 			MOV R0, #0
+  24              	
+  25 0028 090000EB 			BL MAX
+  26              	
+  27              	
+  28 002c 64109FE5 			LDR R1, =A			/*	Carga de direccion de memoria de A en R1	*/
+  29 0030 0820A0E3 			MOV R2, #longA		/*	Carga de valor longA en R2					*/
+  30 0034 0030A0E3 			MOV R3, #0
+  31              	
+  32              	
+  33 0038 006191E7 			LDR R6, [R1, R0, LSL #2]	/*	Recuperamos A[ind]	*/
+  34 003c 056184E7 			STR R6, [R4, R5, LSL #2]	/*	Guardamos B[j] = A[ind]	*/
+  35              	
+  36 0040 003181E7 			STR R3, [R1, R0, LSL #2]	/*	Guardamos A[ind]=0	*/
+  37 0044 0000A0E3 			MOV R0, #0
+  38              	
+  39 0048 015085E2 			ADD R5, #1
+  40 004c F2FFFFEA 			B forJ
+  41              	
+  42              	finJ:
+  43 0050 FEFFFFEA 	fin:	B .
+  44              	
+  45              	/*	int MAX(int A[] {R1}, int longA {R2})	*/
+  46              	/*	ind {R0} max {R3}						*/
+  47 0054 30082DE9 	MAX:	PUSH {R4, R5, FP}	/*	Salvamos R4, R5, FP	*/
+  48 0058 08B08DE2 			ADD FP, SP, #8		/*	8=4*3-4				*/
+  49              	
+  50 005c 0000A0E3 			MOV R0, #0
+  51 0060 0030A0E3 			MOV R3, #0
+  52 0064 0040A0E3 			MOV R4, #0			/*	R4 i=0	*/
+  53 0068 020054E1 	forI:	CMP	R4, R2			/*	Comparamos para salir de forI	*/
+  54 006c 0600000A 			BEQ finI
+  55              	
+  56 0070 045191E7 			LDR R5, [R1, R4, LSL #2]	/*	Cargamos en R5 A[i]		*/
+  57 0074 030055E1 			CMP R5, R3					/*	Comparamos A[i] con Max	*/
+  58 0078 010000DA 			BLE NoIf					/*	Si A[i] <= Max			*/
+  59              	
+  60 007c 0530A0E1 			MOV R3, R5			/*	MAX = A[i]	*/
+  61 0080 0400A0E1 			MOV R0, R4			/*	IND = i 	*/
+  62              	
+  63              	NoIf:
+  64 0084 014084E2 			ADD R4, #1
+  65 0088 F6FFFFEA 			B forI
+  66              	finI:
+  67              			/*	Recuperamos R4, R5, FP	*/
+  68 008c 3008BDE8 			POP {R4, R5, FP }
+  69 0090 0EF0A0E1 			MOV PC, LR
+  70              	
+  71 0094 00000000 			.end
+  71      00000000 
+  71      00000000 
+DEFINED SYMBOLS
+   ../Practica3b.asm:10     .text:00000000 start
+   ../Practica3b.asm:4      *ABS*:00000008 longA
+   ../Practica3b.asm:6      .data:00000000 A
+   ../Practica3b.asm:8      .bss:00000000 B
+   ../Practica3b.asm:8      .bss:00000000 $d
+   ../Practica3b.asm:11     .text:00000000 $a
+   ../Practica3b.asm:20     .text:0000001c forJ
+   ../Practica3b.asm:42     .text:00000050 finJ
+   ../Practica3b.asm:47     .text:00000054 MAX
+   ../Practica3b.asm:43     .text:00000050 fin
+   ../Practica3b.asm:53     .text:00000068 forI
+   ../Practica3b.asm:66     .text:0000008c finI
+   ../Practica3b.asm:63     .text:00000084 NoIf
+   ../Practica3b.asm:71     .text:00000094 $d
+                   .debug_aranges:0000000c $d
+
+UNDEFINED SYMBOLS
+_stack

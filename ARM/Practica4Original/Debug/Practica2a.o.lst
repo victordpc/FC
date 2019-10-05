@@ -1,0 +1,54 @@
+   1              	# 1 "../Practica2a.asm"
+   1              	.global start
+   0              	
+   0              	
+   0              	
+   2              	
+   3              	.equ N, 8
+   4              	
+   5              	.data
+   6 0000 07000000 	A: .word 7, 3, 25, 4, 75, 2, 1, 1
+   6      03000000 
+   6      19000000 
+   6      04000000 
+   6      4B000000 
+   7              	
+   8              	.bss
+   9 0000 00000000 	max: .space 4
+  10              	
+  11              	.text
+  12              	start:
+  13 0000 0000A0E3 			MOV R0, #0
+  14 0004 30109FE5 			LDR R1, =max		/*	R1 Mem MAX	*/
+  15 0008 000081E5 			STR R0, [R1]		/*	R0 Val MAX	*/
+  16 000c 2C309FE5 			LDR R3, =A
+  17              			@LDR R3, [R3]		/*	R3 A	*/
+  18 0010 0820A0E3 			MOV R2, #N			/*	R2 i=N	*/
+  19 0014 000052E3 	for:	CMP R2, #0			/*	Comparamos para ver si salimos del bucle	*/
+  20 0018 0600000A 			BEQ	FIN				/*	BEQ #0	*/
+  21 001c 012042E2 			SUB R2, #1
+  22 0020 024193E7 			LDR R4, [R3, R2, LSL#2] /*	Cargamos en R4 el valor almacenado en R0(A)+R2(i)*4	*/
+  23              									/*	Recorremos el array de fin a principio	*/
+  24 0024 040050E1 			CMP R0, R4			/*	Comparamos R0(MAX) R3(A[i])	*/
+  25 0028 010000CA 			BGT seguir			/*	Si R0 > R4 No guardamos	*/
+  26 002c 0400A0E1 			MOV R0, R4
+  27 0030 000081E5 			STR R0, [R1]			/*	Actualizamos MAX con el valor máximo	*/
+  28              	seguir:				/*	i--	*/
+  29 0034 F6FFFFEA 			B for
+  30 0038 FEFFFFEA 	FIN: 	B .
+  31 003c 00000000 			.end
+  31      00000000 
+DEFINED SYMBOLS
+   ../Practica2a.asm:12     .text:00000000 start
+   ../Practica2a.asm:3      *ABS*:00000008 N
+   ../Practica2a.asm:6      .data:00000000 A
+   ../Practica2a.asm:9      .bss:00000000 max
+   ../Practica2a.asm:9      .bss:00000000 $d
+   ../Practica2a.asm:13     .text:00000000 $a
+   ../Practica2a.asm:19     .text:00000014 for
+   ../Practica2a.asm:30     .text:00000038 FIN
+   ../Practica2a.asm:28     .text:00000034 seguir
+   ../Practica2a.asm:31     .text:0000003c $d
+                   .debug_aranges:0000000c $d
+
+NO UNDEFINED SYMBOLS

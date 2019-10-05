@@ -1,0 +1,54 @@
+12:18:19 **** Build of configuration Debug for project Practica1 ****
+cs-make all 
+'Building file: ../Practica1.asm'
+'Invoking: ARM Sourcery Windows GCC Assembler'
+arm-none-eabi-gcc -x assembler-with-cpp -Wall -Wa,-adhlns="Practica1.o.lst" -c -fmessage-length=0 -MMD -MP -MF"Practica1.d" -MT"Practica1.d" -mcpu=arm7tdmi -g3 -gdwarf-2 -o "Practica1.o" "../Practica1.asm"
+'Finished building: ../Practica1.asm'
+' '
+'Building file: ../Practica1aModif_1.asm'
+'Invoking: ARM Sourcery Windows GCC Assembler'
+arm-none-eabi-gcc -x assembler-with-cpp -Wall -Wa,-adhlns="Practica1aModif_1.o.lst" -c -fmessage-length=0 -MMD -MP -MF"Practica1aModif_1.d" -MT"Practica1aModif_1.d" -mcpu=arm7tdmi -g3 -gdwarf-2 -o "Practica1aModif_1.o" "../Practica1aModif_1.asm"
+'Finished building: ../Practica1aModif_1.asm'
+' '
+'Building file: ../Practica1aModif_2.asm'
+'Invoking: ARM Sourcery Windows GCC Assembler'
+arm-none-eabi-gcc -x assembler-with-cpp -Wall -Wa,-adhlns="Practica1aModif_2.o.lst" -c -fmessage-length=0 -MMD -MP -MF"Practica1aModif_2.d" -MT"Practica1aModif_2.d" -mcpu=arm7tdmi -g3 -gdwarf-2 -o "Practica1aModif_2.o" "../Practica1aModif_2.asm"
+'Finished building: ../Practica1aModif_2.asm'
+' '
+'Building file: ../Practica1b.asm'
+'Invoking: ARM Sourcery Windows GCC Assembler'
+arm-none-eabi-gcc -x assembler-with-cpp -Wall -Wa,-adhlns="Practica1b.o.lst" -c -fmessage-length=0 -MMD -MP -MF"Practica1b.d" -MT"Practica1b.d" -mcpu=arm7tdmi -g3 -gdwarf-2 -o "Practica1b.o" "../Practica1b.asm"
+'Finished building: ../Practica1b.asm'
+' '
+'Building file: ../Practica1bModif_3.asm'
+'Invoking: ARM Sourcery Windows GCC Assembler'
+arm-none-eabi-gcc -x assembler-with-cpp -Wall -Wa,-adhlns="Practica1bModif_3.o.lst" -c -fmessage-length=0 -MMD -MP -MF"Practica1bModif_3.d" -MT"Practica1bModif_3.d" -mcpu=arm7tdmi -g3 -gdwarf-2 -o "Practica1bModif_3.o" "../Practica1bModif_3.asm"
+'Finished building: ../Practica1bModif_3.asm'
+' '
+'Building file: ../Practica1bModif_4.asm'
+'Invoking: ARM Sourcery Windows GCC Assembler'
+arm-none-eabi-gcc -x assembler-with-cpp -Wall -Wa,-adhlns="Practica1bModif_4.o.lst" -c -fmessage-length=0 -MMD -MP -MF"Practica1bModif_4.d" -MT"Practica1bModif_4.d" -mcpu=arm7tdmi -g3 -gdwarf-2 -o "Practica1bModif_4.o" "../Practica1bModif_4.asm"
+'Finished building: ../Practica1bModif_4.asm'
+' '
+'Building target: Practica1.elf'
+'Invoking: ARM Sourcery Windows GCC C Linker'
+arm-none-eabi-gcc -T"C:\Universidad\FC\ARM\Practica1\ld_script.ld" -nostartfiles -Wl,-Map,Practica1.map -mcpu=arm7tdmi -g3 -gdwarf-2 -o "Practica1.elf"  ./Practica1.o ./Practica1aModif_1.o ./Practica1aModif_2.o ./Practica1b.o ./Practica1bModif_3.o ./Practica1bModif_4.o   
+'Finished building target: Practica1.elf'
+' '
+'Invoking: ARM Sourcery Windows GNU Create Flash Image'
+arm-none-eabi-objcopy -O binary Practica1.elf  "Practica1.hex"
+'Finished building: Practica1.hex'
+' '
+'Invoking: ARM Sourcery Windows GNU Create Listing'
+arm-none-eabi-objdump -h -S Practica1.elf > "Practica1.lst"
+'Finished building: Practica1.lst'
+' '
+'Invoking: ARM Sourcery Windows GNU Print Size'
+arm-none-eabi-size  --format=berkeley Practica1.elf
+   text	   data	    bss	    dec	    hex	filename
+     56	      8	      4	     68	     44	Practica1.elf
+'Finished building: Practica1.siz'
+' '
+
+12:18:23 Build Finished (took 3s.150ms)
+

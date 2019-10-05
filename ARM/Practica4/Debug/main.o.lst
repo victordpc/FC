@@ -1,0 +1,302 @@
+   1              		.cpu arm7tdmi
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 18, 4
+  11              		.file	"main.c"
+  21              	.Ltext0:
+  22              		.file 1 "../main.c"
+ 1996              		.align	2
+ 1997              		.global	initRGB
+ 1999              	initRGB:
+ 2000              	.LFB0:
+   1:../main.c     **** #include <stdio.h>
+   2:../main.c     **** #include "trafo.h"
+   3:../main.c     **** #include "types.h"
+   4:../main.c     **** #include "lena128.h"
+   5:../main.c     **** 
+   6:../main.c     **** pixelRGB imagenRGB[N][M];
+   7:../main.c     **** unsigned char imagenGris[N][M];
+   8:../main.c     **** unsigned char imagenBinaria[N][M];
+   9:../main.c     **** unsigned char blancosPorFila[N];
+  10:../main.c     **** 
+  11:../main.c     **** void initRGB(pixelRGB m[N][M]) {
+ 2001              		.loc 1 11 0
+ 2002              		.cfi_startproc
+ 2003              		@ Function supports interworking.
+ 2004              		@ args = 0, pretend = 0, frame = 24
+ 2005              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2006 0000 0DC0A0E1 		mov	ip, sp
+ 2007              	.LCFI0:
+ 2008              		.cfi_def_cfa_register 12
+ 2009 0004 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+ 2010 0008 04B04CE2 		sub	fp, ip, #4
+ 2011              		.cfi_offset 14, -8
+ 2012              		.cfi_offset 13, -12
+ 2013              		.cfi_offset 11, -16
+ 2014              	.LCFI1:
+ 2015              		.cfi_def_cfa 11, 4
+ 2016 000c 18D04DE2 		sub	sp, sp, #24
+ 2017 0010 20000BE5 		str	r0, [fp, #-32]
+  12:../main.c     ****     int i=0,j=0;
+ 2018              		.loc 1 12 0
+ 2019 0014 0030A0E3 		mov	r3, #0
+ 2020 0018 10300BE5 		str	r3, [fp, #-16]
+ 2021 001c 0030A0E3 		mov	r3, #0
+ 2022 0020 14300BE5 		str	r3, [fp, #-20]
+  13:../main.c     **** int p=0;
+ 2023              		.loc 1 13 0
+ 2024 0024 0030A0E3 		mov	r3, #0
+ 2025 0028 18300BE5 		str	r3, [fp, #-24]
+  14:../main.c     ****     for (i=0;i<N;i++)
+ 2026              		.loc 1 14 0
+ 2027 002c 0030A0E3 		mov	r3, #0
+ 2028 0030 10300BE5 		str	r3, [fp, #-16]
+ 2029 0034 700000EA 		b	.L2
+ 2030              	.L5:
+  15:../main.c     ****     {
+  16:../main.c     ****         for (j=0; j<M; j++) {
+ 2031              		.loc 1 16 0
+ 2032 0038 0030A0E3 		mov	r3, #0
+ 2033 003c 14300BE5 		str	r3, [fp, #-20]
+ 2034 0040 670000EA 		b	.L3
+ 2035              	.L4:
+  17:../main.c     ****             m[i][j].R = lena128[(i*M + j)*3];
+ 2036              		.loc 1 17 0 discriminator 2
+ 2037 0044 10201BE5 		ldr	r2, [fp, #-16]
+ 2038 0048 0230A0E1 		mov	r3, r2
+ 2039 004c 8330A0E1 		mov	r3, r3, asl #1
+ 2040 0050 023083E0 		add	r3, r3, r2
+ 2041 0054 8333A0E1 		mov	r3, r3, asl #7
+ 2042 0058 20201BE5 		ldr	r2, [fp, #-32]
+ 2043 005c 030082E0 		add	r0, r2, r3
+ 2044 0060 10301BE5 		ldr	r3, [fp, #-16]
+ 2045 0064 8323A0E1 		mov	r2, r3, asl #7
+ 2046 0068 14301BE5 		ldr	r3, [fp, #-20]
+ 2047 006c 032082E0 		add	r2, r2, r3
+ 2048 0070 0230A0E1 		mov	r3, r2
+ 2049 0074 8330A0E1 		mov	r3, r3, asl #1
+ 2050 0078 023083E0 		add	r3, r3, r2
+ 2051 007c 90219FE5 		ldr	r2, .L6
+ 2052 0080 0310D2E7 		ldrb	r1, [r2, r3]	@ zero_extendqisi2
+ 2053 0084 14201BE5 		ldr	r2, [fp, #-20]
+ 2054 0088 0230A0E1 		mov	r3, r2
+ 2055 008c 8330A0E1 		mov	r3, r3, asl #1
+ 2056 0090 023083E0 		add	r3, r3, r2
+ 2057 0094 033080E0 		add	r3, r0, r3
+ 2058 0098 0120A0E1 		mov	r2, r1
+ 2059 009c 0020C3E5 		strb	r2, [r3, #0]
+  18:../main.c     ****             p=(i*M + j)*3;
+ 2060              		.loc 1 18 0 discriminator 2
+ 2061 00a0 10301BE5 		ldr	r3, [fp, #-16]
+ 2062 00a4 8323A0E1 		mov	r2, r3, asl #7
+ 2063 00a8 14301BE5 		ldr	r3, [fp, #-20]
+ 2064 00ac 032082E0 		add	r2, r2, r3
+ 2065 00b0 0230A0E1 		mov	r3, r2
+ 2066 00b4 8330A0E1 		mov	r3, r3, asl #1
+ 2067 00b8 023083E0 		add	r3, r3, r2
+ 2068 00bc 18300BE5 		str	r3, [fp, #-24]
+  19:../main.c     ****             m[i][j].G = lena128[(i*M + j)*3 + 1];
+ 2069              		.loc 1 19 0 discriminator 2
+ 2070 00c0 10201BE5 		ldr	r2, [fp, #-16]
+ 2071 00c4 0230A0E1 		mov	r3, r2
+ 2072 00c8 8330A0E1 		mov	r3, r3, asl #1
+ 2073 00cc 023083E0 		add	r3, r3, r2
+ 2074 00d0 8333A0E1 		mov	r3, r3, asl #7
+ 2075 00d4 20201BE5 		ldr	r2, [fp, #-32]
+ 2076 00d8 03C082E0 		add	ip, r2, r3
+ 2077 00dc 10301BE5 		ldr	r3, [fp, #-16]
+ 2078 00e0 8323A0E1 		mov	r2, r3, asl #7
+ 2079 00e4 14301BE5 		ldr	r3, [fp, #-20]
+ 2080 00e8 032082E0 		add	r2, r2, r3
+ 2081 00ec 0230A0E1 		mov	r3, r2
+ 2082 00f0 8330A0E1 		mov	r3, r3, asl #1
+ 2083 00f4 023083E0 		add	r3, r3, r2
+ 2084 00f8 013083E2 		add	r3, r3, #1
+ 2085 00fc 10219FE5 		ldr	r2, .L6
+ 2086 0100 0310D2E7 		ldrb	r1, [r2, r3]	@ zero_extendqisi2
+ 2087 0104 14201BE5 		ldr	r2, [fp, #-20]
+ 2088 0108 0100A0E3 		mov	r0, #1
+ 2089 010c 0230A0E1 		mov	r3, r2
+ 2090 0110 8330A0E1 		mov	r3, r3, asl #1
+ 2091 0114 023083E0 		add	r3, r3, r2
+ 2092 0118 03308CE0 		add	r3, ip, r3
+ 2093 011c 003083E0 		add	r3, r3, r0
+ 2094 0120 0120A0E1 		mov	r2, r1
+ 2095 0124 0020C3E5 		strb	r2, [r3, #0]
+  20:../main.c     ****             p=(i*M + j)*3+1;
+ 2096              		.loc 1 20 0 discriminator 2
+ 2097 0128 10301BE5 		ldr	r3, [fp, #-16]
+ 2098 012c 8323A0E1 		mov	r2, r3, asl #7
+ 2099 0130 14301BE5 		ldr	r3, [fp, #-20]
+ 2100 0134 032082E0 		add	r2, r2, r3
+ 2101 0138 0230A0E1 		mov	r3, r2
+ 2102 013c 8330A0E1 		mov	r3, r3, asl #1
+ 2103 0140 023083E0 		add	r3, r3, r2
+ 2104 0144 013083E2 		add	r3, r3, #1
+ 2105 0148 18300BE5 		str	r3, [fp, #-24]
+  21:../main.c     ****             m[i][j].B = lena128[(i*M + j)*3 + 2];
+ 2106              		.loc 1 21 0 discriminator 2
+ 2107 014c 10201BE5 		ldr	r2, [fp, #-16]
+ 2108 0150 0230A0E1 		mov	r3, r2
+ 2109 0154 8330A0E1 		mov	r3, r3, asl #1
+ 2110 0158 023083E0 		add	r3, r3, r2
+ 2111 015c 8333A0E1 		mov	r3, r3, asl #7
+ 2112 0160 20201BE5 		ldr	r2, [fp, #-32]
+ 2113 0164 03C082E0 		add	ip, r2, r3
+ 2114 0168 10301BE5 		ldr	r3, [fp, #-16]
+ 2115 016c 8323A0E1 		mov	r2, r3, asl #7
+ 2116 0170 14301BE5 		ldr	r3, [fp, #-20]
+ 2117 0174 032082E0 		add	r2, r2, r3
+ 2118 0178 0230A0E1 		mov	r3, r2
+ 2119 017c 8330A0E1 		mov	r3, r3, asl #1
+ 2120 0180 023083E0 		add	r3, r3, r2
+ 2121 0184 023083E2 		add	r3, r3, #2
+ 2122 0188 84209FE5 		ldr	r2, .L6
+ 2123 018c 0310D2E7 		ldrb	r1, [r2, r3]	@ zero_extendqisi2
+ 2124 0190 14201BE5 		ldr	r2, [fp, #-20]
+ 2125 0194 0200A0E3 		mov	r0, #2
+ 2126 0198 0230A0E1 		mov	r3, r2
+ 2127 019c 8330A0E1 		mov	r3, r3, asl #1
+ 2128 01a0 023083E0 		add	r3, r3, r2
+ 2129 01a4 03308CE0 		add	r3, ip, r3
+ 2130 01a8 003083E0 		add	r3, r3, r0
+ 2131 01ac 0120A0E1 		mov	r2, r1
+ 2132 01b0 0020C3E5 		strb	r2, [r3, #0]
+  22:../main.c     ****             p=(i*M + j)*3+2;
+ 2133              		.loc 1 22 0 discriminator 2
+ 2134 01b4 10301BE5 		ldr	r3, [fp, #-16]
+ 2135 01b8 8323A0E1 		mov	r2, r3, asl #7
+ 2136 01bc 14301BE5 		ldr	r3, [fp, #-20]
+ 2137 01c0 032082E0 		add	r2, r2, r3
+ 2138 01c4 0230A0E1 		mov	r3, r2
+ 2139 01c8 8330A0E1 		mov	r3, r3, asl #1
+ 2140 01cc 023083E0 		add	r3, r3, r2
+ 2141 01d0 023083E2 		add	r3, r3, #2
+ 2142 01d4 18300BE5 		str	r3, [fp, #-24]
+  16:../main.c     ****         for (j=0; j<M; j++) {
+ 2143              		.loc 1 16 0 discriminator 2
+ 2144 01d8 14301BE5 		ldr	r3, [fp, #-20]
+ 2145 01dc 013083E2 		add	r3, r3, #1
+ 2146 01e0 14300BE5 		str	r3, [fp, #-20]
+ 2147              	.L3:
+  16:../main.c     ****         for (j=0; j<M; j++) {
+ 2148              		.loc 1 16 0 is_stmt 0 discriminator 1
+ 2149 01e4 14301BE5 		ldr	r3, [fp, #-20]
+ 2150 01e8 7F0053E3 		cmp	r3, #127
+ 2151 01ec 94FFFFDA 		ble	.L4
+  14:../main.c     ****     for (i=0;i<N;i++)
+ 2152              		.loc 1 14 0 is_stmt 1
+ 2153 01f0 10301BE5 		ldr	r3, [fp, #-16]
+ 2154 01f4 013083E2 		add	r3, r3, #1
+ 2155 01f8 10300BE5 		str	r3, [fp, #-16]
+ 2156              	.L2:
+  14:../main.c     ****     for (i=0;i<N;i++)
+ 2157              		.loc 1 14 0 is_stmt 0 discriminator 1
+ 2158 01fc 10301BE5 		ldr	r3, [fp, #-16]
+ 2159 0200 7F0053E3 		cmp	r3, #127
+ 2160 0204 8BFFFFDA 		ble	.L5
+  23:../main.c     ****         }
+  24:../main.c     ****     }
+  25:../main.c     **** }
+ 2161              		.loc 1 25 0 is_stmt 1
+ 2162 0208 0CD04BE2 		sub	sp, fp, #12
+ 2163 020c 00689DE8 		ldmfd	sp, {fp, sp, lr}
+ 2164 0210 1EFF2FE1 		bx	lr
+ 2165              	.L7:
+ 2166              		.align	2
+ 2167              	.L6:
+ 2168 0214 00000000 		.word	lena128
+ 2169              		.cfi_endproc
+ 2170              	.LFE0:
+ 2172              		.align	2
+ 2173              		.global	main
+ 2175              	main:
+ 2176              	.LFB1:
+  26:../main.c     **** 
+  27:../main.c     **** int main(void) {
+ 2177              		.loc 1 27 0
+ 2178              		.cfi_startproc
+ 2179              		@ Function supports interworking.
+ 2180              		@ args = 0, pretend = 0, frame = 0
+ 2181              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2182 0218 0DC0A0E1 		mov	ip, sp
+ 2183              	.LCFI2:
+ 2184              		.cfi_def_cfa_register 12
+ 2185 021c 00D82DE9 		stmfd	sp!, {fp, ip, lr, pc}
+ 2186 0220 04B04CE2 		sub	fp, ip, #4
+ 2187              		.cfi_offset 14, -8
+ 2188              		.cfi_offset 13, -12
+ 2189              		.cfi_offset 11, -16
+ 2190              	.LCFI3:
+ 2191              		.cfi_def_cfa 11, 4
+  28:../main.c     ****     // 1. Crear una matriz NxM a partir del array lena128
+  29:../main.c     ****     initRGB(imagenRGB);
+ 2192              		.loc 1 29 0
+ 2193 0224 38009FE5 		ldr	r0, .L9
+ 2194 0228 FEFFFFEB 		bl	initRGB
+  30:../main.c     **** 
+  31:../main.c     ****     // 2. Transformar la matriz RGB a una matriz de grises
+  32:../main.c     ****     RGB2GrayMatrix(imagenRGB,imagenGris);
+ 2195              		.loc 1 32 0
+ 2196 022c 30009FE5 		ldr	r0, .L9
+ 2197 0230 30109FE5 		ldr	r1, .L9+4
+ 2198 0234 FEFFFFEB 		bl	RGB2GrayMatrix
+  33:../main.c     **** 
+  34:../main.c     ****     // 3. Transformar la matriz de grises a una matriz en blanco y negro
+  35:../main.c     ****     Gray2BinaryMatrix(imagenGris,imagenBinaria);
+ 2199              		.loc 1 35 0
+ 2200 0238 28009FE5 		ldr	r0, .L9+4
+ 2201 023c 28109FE5 		ldr	r1, .L9+8
+ 2202 0240 FEFFFFEB 		bl	Gray2BinaryMatrix
+  36:../main.c     **** 
+  37:../main.c     ****     // 4. Contar los blancos que aparecen por filas en imagenBinaria
+  38:../main.c     ****     contarBlancos(imagenBinaria,blancosPorFila);
+ 2203              		.loc 1 38 0
+ 2204 0244 20009FE5 		ldr	r0, .L9+8
+ 2205 0248 20109FE5 		ldr	r1, .L9+12
+ 2206 024c FEFFFFEB 		bl	contarBlancos
+  39:../main.c     **** 
+  40:../main.c     ****     return 0;
+ 2207              		.loc 1 40 0
+ 2208 0250 0030A0E3 		mov	r3, #0
+  41:../main.c     **** }
+ 2209              		.loc 1 41 0
+ 2210 0254 0300A0E1 		mov	r0, r3
+ 2211 0258 0CD04BE2 		sub	sp, fp, #12
+ 2212 025c 00689DE8 		ldmfd	sp, {fp, sp, lr}
+ 2213 0260 1EFF2FE1 		bx	lr
+ 2214              	.L10:
+ 2215              		.align	2
+ 2216              	.L9:
+ 2217 0264 00000000 		.word	imagenRGB
+ 2218 0268 00000000 		.word	imagenGris
+ 2219 026c 00000000 		.word	imagenBinaria
+ 2220 0270 00000000 		.word	blancosPorFila
+ 2221              		.cfi_endproc
+ 2222              	.LFE1:
+ 2224              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+                            *COM*:0000c000 imagenRGB
+                            *COM*:00004000 imagenGris
+                            *COM*:00004000 imagenBinaria
+                            *COM*:00000080 blancosPorFila
+C:\Users\victo\AppData\Local\Temp\cc0NuLke.s:1996   .text:00000000 $a
+C:\Users\victo\AppData\Local\Temp\cc0NuLke.s:1999   .text:00000000 initRGB
+C:\Users\victo\AppData\Local\Temp\cc0NuLke.s:2168   .text:00000214 $d
+C:\Users\victo\AppData\Local\Temp\cc0NuLke.s:2172   .text:00000218 $a
+C:\Users\victo\AppData\Local\Temp\cc0NuLke.s:2175   .text:00000218 main
+C:\Users\victo\AppData\Local\Temp\cc0NuLke.s:2217   .text:00000264 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+lena128
+RGB2GrayMatrix
+Gray2BinaryMatrix
+contarBlancos

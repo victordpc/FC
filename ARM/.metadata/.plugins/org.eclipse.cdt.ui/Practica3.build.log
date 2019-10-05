@@ -1,0 +1,23 @@
+21:28:36 **** Build of configuration Debug for project Practica3 ****
+cs-make all 
+'Building file: ../Practica3a.asm'
+'Invoking: ARM Sourcery Windows GCC Assembler'
+arm-none-eabi-gcc -x assembler-with-cpp -Wall -Wa,-adhlns="Practica3a.o.lst" -c -fmessage-length=0 -MMD -MP -MF"Practica3a.d" -MT"Practica3a.d" -mcpu=arm7tdmi -g3 -gdwarf-2 -o "Practica3a.o" "../Practica3a.asm"
+'Finished building: ../Practica3a.asm'
+' '
+'Building file: ../Practica3b.asm'
+'Invoking: ARM Sourcery Windows GCC Assembler'
+arm-none-eabi-gcc -x assembler-with-cpp -Wall -Wa,-adhlns="Practica3b.o.lst" -c -fmessage-length=0 -MMD -MP -MF"Practica3b.d" -MT"Practica3b.d" -mcpu=arm7tdmi -g3 -gdwarf-2 -o "Practica3b.o" "../Practica3b.asm"
+'Finished building: ../Practica3b.asm'
+' '
+'Building target: Practica3.elf'
+'Invoking: ARM Sourcery Windows GCC C Linker'
+arm-none-eabi-gcc -T"C:\Universidad\FC\ARM\Practica1\ld_script.ld" -nostartfiles -Wl,-Map,Practica3.map -mcpu=arm7tdmi -g3 -gdwarf-2 -o "Practica3.elf"  ./Practica3a.o ./Practica3b.o   
+./Practica3b.o: In function `start':
+C:\Universidad\FC\ARM\Practica3\Debug/../Practica3b.asm:11: multiple definition of `start'
+./Practica3a.o:C:\Universidad\FC\ARM\Practica3\Debug/../Practica3a.asm:15: first defined here
+collect2: ld returned 1 exit status
+cs-make: *** [Practica3.elf] Error 1
+
+21:28:37 Build Finished (took 1s.123ms)
+

@@ -1,0 +1,196 @@
+Archive member included because of file (symbol)
+
+c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2\libgcc.a(_divsi3.o)
+                              ./trafo.o (__aeabi_idiv)
+c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2\libgcc.a(_dvmd_tls.o)
+                              c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2\libgcc.a(_divsi3.o) (__aeabi_idiv0)
+
+Allocating common symbols
+Common symbol       size              file
+
+imagenRGB           0xc000            ./main.o
+imagenBinaria       0x4000            ./main.o
+blancosPorFila      0x80              ./main.o
+imagenGris          0x4000            ./main.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD ./init.o
+LOAD ./lena128.o
+LOAD ./main.o
+LOAD ./rutinas_asm.o
+LOAD ./trafo.o
+START GROUP
+LOAD c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2\libgcc.a
+LOAD c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/lib\libc.a
+END GROUP
+                0x0c000000                . = 0xc000000
+
+.data           0x0c000000     0xc010
+ *(.data)
+ .data          0x0c000000        0x0 ./init.o
+ .data          0x0c000000     0xc000 ./lena128.o
+                0x0c000000                lena128
+ .data          0x0c00c000        0x0 ./main.o
+ .data          0x0c00c000        0x0 ./rutinas_asm.o
+ .data          0x0c00c000       0x10 ./trafo.o
+                0x0c00c000                COEF1
+                0x0c00c004                COEF2
+                0x0c00c008                COEF3
+                0x0c00c00c                COEF4
+ .data          0x0c00c010        0x0 c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2\libgcc.a(_divsi3.o)
+ .data          0x0c00c010        0x0 c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2\libgcc.a(_dvmd_tls.o)
+ *(.rodata)
+
+.bss            0x0c00c010    0x14080
+ *(.bss)
+ .bss           0x0c00c010        0x0 ./init.o
+ .bss           0x0c00c010        0x0 ./lena128.o
+ .bss           0x0c00c010        0x0 ./main.o
+ .bss           0x0c00c010        0x0 ./rutinas_asm.o
+ .bss           0x0c00c010        0x0 ./trafo.o
+ .bss           0x0c00c010        0x0 c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2\libgcc.a(_divsi3.o)
+ .bss           0x0c00c010        0x0 c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2\libgcc.a(_dvmd_tls.o)
+ *(COMMON)
+ COMMON         0x0c00c010    0x14080 ./main.o
+                0x0c00c010                imagenRGB
+                0x0c018010                imagenBinaria
+                0x0c01c010                blancosPorFila
+                0x0c01c090                imagenGris
+
+.text           0x0c020090      0x6a8
+ *(.text)
+ .text          0x0c020090       0x14 ./init.o
+                0x0c020090                start
+ .text          0x0c0200a4        0x0 ./lena128.o
+ .text          0x0c0200a4      0x274 ./main.o
+                0x0c0200a4                initRGB
+                0x0c0202bc                main
+ .text          0x0c020318       0x80 ./rutinas_asm.o
+                0x0c020318                RGB2GrayMatrix
+ .text          0x0c020398      0x254 ./trafo.o
+                0x0c020398                Gray2BinaryMatrix
+                0x0c02047c                rgb2gray
+                0x0c02052c                contarBlancos
+ .text          0x0c0205ec      0x148 c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2\libgcc.a(_divsi3.o)
+                0x0c0205ec                __divsi3
+                0x0c0205ec                __aeabi_idiv
+                0x0c020714                __aeabi_idivmod
+ .text          0x0c020734        0x4 c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2\libgcc.a(_dvmd_tls.o)
+                0x0c020734                __aeabi_idiv0
+                0x0c020734                __aeabi_ldiv0
+                0x0c020738                PROVIDE (end, .)
+                0x0c7ff000                PROVIDE (_stack, 0xc7ff000)
+OUTPUT(Practica4.elf elf32-littlearm)
+
+.glue_7         0x0c020738        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x0c020738        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x0c020738        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x0c020738        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.ARM.attributes
+                0x00000000       0x2e
+ .ARM.attributes
+                0x00000000       0x22 ./init.o
+ .ARM.attributes
+                0x00000022       0x32 ./lena128.o
+ .ARM.attributes
+                0x00000054       0x32 ./main.o
+ .ARM.attributes
+                0x00000086       0x22 ./rutinas_asm.o
+ .ARM.attributes
+                0x000000a8       0x32 ./trafo.o
+ .ARM.attributes
+                0x000000da       0x1a c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2\libgcc.a(_divsi3.o)
+ .ARM.attributes
+                0x000000f4       0x18 c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2\libgcc.a(_dvmd_tls.o)
+
+.comment        0x00000000       0x2a
+ .comment       0x00000000       0x2a ./lena128.o
+                                 0x2b (size before relaxing)
+ .comment       0x00000000       0x2b ./main.o
+ .comment       0x00000000       0x2b ./trafo.o
+
+.debug_line     0x00000000      0x4f8
+ .debug_line    0x00000000       0x3e ./init.o
+ .debug_line    0x0000003e       0x3d ./lena128.o
+ .debug_line    0x0000007b      0x387 ./main.o
+ .debug_line    0x00000402       0x61 ./rutinas_asm.o
+ .debug_line    0x00000463       0x95 ./trafo.o
+
+.debug_info     0x00000000      0x4f2
+ .debug_info    0x00000000       0x5b ./init.o
+ .debug_info    0x0000005b       0x5b ./lena128.o
+ .debug_info    0x000000b6      0x209 ./main.o
+ .debug_info    0x000002bf       0x62 ./rutinas_asm.o
+ .debug_info    0x00000321      0x1d1 ./trafo.o
+
+.debug_abbrev   0x00000000      0x226
+ .debug_abbrev  0x00000000       0x14 ./init.o
+ .debug_abbrev  0x00000014       0x44 ./lena128.o
+ .debug_abbrev  0x00000058       0xe5 ./main.o
+ .debug_abbrev  0x0000013d       0x14 ./rutinas_asm.o
+ .debug_abbrev  0x00000151       0xd5 ./trafo.o
+
+.debug_aranges  0x00000000       0x80
+ .debug_aranges
+                0x00000000       0x20 ./init.o
+ .debug_aranges
+                0x00000020       0x20 ./main.o
+ .debug_aranges
+                0x00000040       0x20 ./rutinas_asm.o
+ .debug_aranges
+                0x00000060       0x20 ./trafo.o
+
+.debug_macinfo  0x00000000     0x8dab
+ .debug_macinfo
+                0x00000000     0x210e ./lena128.o
+ .debug_macinfo
+                0x0000210e     0x4b71 ./main.o
+ .debug_macinfo
+                0x00006c7f     0x212c ./trafo.o
+
+.debug_pubnames
+                0x00000000       0xf6
+ .debug_pubnames
+                0x00000000       0x1e ./lena128.o
+ .debug_pubnames
+                0x0000001e       0x69 ./main.o
+ .debug_pubnames
+                0x00000087       0x6f ./trafo.o
+
+.debug_str      0x00000000      0x164
+ .debug_str     0x00000000       0x55 ./lena128.o
+                                 0x62 (size before relaxing)
+ .debug_str     0x00000055       0xa1 ./main.o
+                                0x122 (size before relaxing)
+ .debug_str     0x000000f6       0x6e ./trafo.o
+                                 0xbb (size before relaxing)
+
+.debug_loc      0x00000000       0xdc
+ .debug_loc     0x00000000       0x58 ./main.o
+ .debug_loc     0x00000058       0x84 ./trafo.o
+
+.debug_pubtypes
+                0x00000000       0x42
+ .debug_pubtypes
+                0x00000000       0x30 ./main.o
+ .debug_pubtypes
+                0x00000030       0x12 ./trafo.o
+
+.debug_frame    0x00000000       0xe0
+ .debug_frame   0x00000000       0x50 ./main.o
+ .debug_frame   0x00000050       0x70 ./trafo.o
+ .debug_frame   0x000000c0       0x20 c:/universidad/fc/software/eclipsearm/sourcery-g++-lite-arm-2011.03/bin/../lib/gcc/arm-none-eabi/4.5.2\libgcc.a(_divsi3.o)

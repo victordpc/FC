@@ -1,0 +1,119 @@
+   1              	# 1 "../rutinas_asm.asm"
+   1              		.global rgb2gray
+   0              	
+   0              	
+   0              	
+   2              	
+   3              	/*	.equ COEF1, 3483*/
+   4              	/*	.equ COEF2, 11718*/
+   5              	/*	.equ COEF3, 1183*/
+   6              	
+   7              		.text
+   8              	
+   9              	/*rgb2gray:
+  10              	//  		ldr r3, =COEF1
+  11              	//  		mul r0, r3, r0
+  12              	//  		ldr r3, =COEF2
+  13              	//  		mla r0, r3, r1, r0
+  14              	//  		ldr r3, =COEF3
+  15              	//  		mla r0, r3, r2, r0
+  16              	//  		mov r0, r0, lsr #14
+  17              	//
+  18              	//  		mov pc, lr
+  19              	*/
+  20              	
+  21              		.global RGB2GrayMatrix
+  22              		.extern rgb2gray
+  23              			.equ i, -12
+  24              			.equ j, -16
+  25              			.equ orig, -20
+  26              			.equ dest, -24
+  27              			.equ N,128
+  28              			.equ M,128
+  29              	
+  30              	.text
+  31              	
+  32              	RGB2GrayMatrix:
+  33              	        //COMPLETAR: Apartado 4.9.5.3 del manual de la practica 4
+  34              	        // Recuerde comentar la implementacion C de la función
+  35              	// void RGB2GrayMatrix(pixelRGB orig[N][M]->R0, unsigned char dest[N][M]-> R1) {
+  36              	//    int i,j;
+  37              	
+  38              	/*Prologo*/
+  39              	/*		push {R4,R5,R6,R7,R8,R9,fp,lr,pc}	*/
+  40              	/*		ADD FP, SP, #32			32=4*9-4	*/
+  41 0000 F0C32DE9 			push {R4,R5,R6,R7,R8,R9,lr,pc}
+  42              	/*Prologo*/
+  43              	
+  44 0004 0040A0E3 			mov R4, #0 //i
+  45 0008 0050A0E3 			mov R5, #0 //j
+  46 000c 0060A0E3 			mov R6, #0
+  47 0010 0070A0E1 			mov R7, R0
+  48 0014 0180A0E1 			mov R8, R1
+  49 0018 0090A0E3 			mov R9, #0
+  50              	
+  51              	//    for (i=0;i<N;i++)
+  52 001c 800054E3 	forI:	CMP R4, #N
+  53 0020 1400000A 			BEQ	finI
+  54              	
+  55              	//        for (j=0; j<M; j++)
+  56 0024 0050A0E3 			MOV R5, #0
+  57 0028 800055E3 	forJ:	CMP	R5, #M			/*	Comparamos para salir de forJ	*/
+  58 002c 0F00000A 			BEQ finJ
+  59              	
+  60              	//            dest[i][j] =  rgb2gray(orig[i][j].R, orig[i][j].G, orig[i][j].B);
+  61 0030 8000A0E3 			MOV R0, #N
+  62 0034 940006E0 			MUL R6, R4, R0
+  63 0038 056086E0 			ADD R6, R6, R5
+  64              	
+  65 003c 089086E0 			ADD R9, R6, R8
+  66              	
+  67 0040 0300A0E3 			MOV R0, #3
+  68 0044 0610A0E1 			MOV R1, R6
+  69 0048 910006E0 			MUL R6, R1, R0
+  70 004c 060087E0 			ADD R0, R7, R6 /*	Movemos a R0 la direccion de memoria [i][j].R	*/
+  71              	
+  72 0050 016086E2 			ADD R6, R6, #1
+  73 0054 061087E0 			ADD R1, R7, R6 /*	Movemos a R1 la direccion de memoria [i][j].G	*/
+  74              	
+  75 0058 016086E2 			ADD R6, R6, #1
+  76 005c 062087E0 			ADD R2, R7, R6 /*	Movemos a R2 la direccion de memoria [i][j].B	*/
+  77              	
+  78              			/*	Llamamos a la funcion Rgb2Gray(R, G, B)	*/
+  79 0060 FEFFFFEB 			BL rgb2gray
+  80              	
+  81              			/*	guardamos la vuelta de rgb2gray	*/
+  82 0064 0000C9E5 			STRB R0, [R9]
+  83              	
+  84              	
+  85 0068 015085E2 			ADD R5, #1
+  86 006c EDFFFFEA 			B forJ
+  87              	finJ:
+  88              	
+  89 0070 014084E2 			ADD R4, #1
+  90 0074 E8FFFFEA 			B forI
+  91              	finI:
+  92              	
+  93              	/*		pop {R4,R5,R6,R7,R8,R9,fp,lr,pc}	*/
+  94 0078 F0C3BDE8 			pop {R4,R5,R6,R7,R8,R9,lr,pc}
+  95              	
+  96 007c 0EF0A0E1 			mov PC, LR
+  97              	
+  98              	.end
+DEFINED SYMBOLS
+  ../rutinas_asm.asm:32     .text:00000000 RGB2GrayMatrix
+  ../rutinas_asm.asm:23     *ABS*:fffffff4 i
+  ../rutinas_asm.asm:24     *ABS*:fffffff0 j
+  ../rutinas_asm.asm:25     *ABS*:ffffffec orig
+  ../rutinas_asm.asm:26     *ABS*:ffffffe8 dest
+  ../rutinas_asm.asm:27     *ABS*:00000080 N
+  ../rutinas_asm.asm:28     *ABS*:00000080 M
+  ../rutinas_asm.asm:41     .text:00000000 $a
+  ../rutinas_asm.asm:52     .text:0000001c forI
+  ../rutinas_asm.asm:91     .text:00000078 finI
+  ../rutinas_asm.asm:57     .text:00000028 forJ
+  ../rutinas_asm.asm:87     .text:00000070 finJ
+                   .debug_aranges:0000000c $d
+
+UNDEFINED SYMBOLS
+rgb2gray

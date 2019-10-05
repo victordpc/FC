@@ -1,0 +1,79 @@
+   1              	# 1 "../Practica3a.asm"
+   1              	/*	51458991-X	*/
+   0              	
+   0              	
+   0              	
+   2              	.extern _stack
+   3              	.global start
+   4              	
+   5              	.equ longA, 8
+   6              	
+   7              	.data
+   8 0000 07000000 	A: .word 7, 3, 25, 4, 75, 2, 1, 1
+   8      03000000 
+   8      19000000 
+   8      04000000 
+   8      4B000000 
+   9              	
+  10              	.bss
+  11 0000 00000000 	max: .space 4
+  12              	
+  13              	.text
+  14              	start:
+  15 0000 58D09FE5 			LDR SP, =_stack		/*	Carga en SP de la pila de llamadas			*/
+  16 0004 00B0A0E3 			MOV FP, #0			/*	Marca para FP								*/
+  17 0008 54109FE5 			LDR R1, =A			/*	Carga de direccion de memoria de A en R1	*/
+  18 000c 0820A0E3 			MOV R2, #longA		/*	Carga de valor longA en R2					*/
+  19              	
+  20 0010 020000EB 			BL MAX
+  21              	
+  22 0014 4C209FE5 			LDR R2, =max		/*	Carga de la direccion de memoria de max en R2	*/
+  23 0018 000082E5 			STR R0, [R2]		/*	Guardado del valor max en memoria				*/
+  24              	
+  25 001c FEFFFFEA 			B .
+  26              	
+  27              	/*	int MAX(int A[] {R1}, int longA {R2})	*/
+  28              	/*	ind {R0} max {R3}						*/
+  29 0020 30082DE9 	MAX:	PUSH {R4, R5, FP}	/*	Salvamos R4, R5, FP	*/
+  30 0024 08B08DE2 			ADD FP, SP, #8		/*	8=4*3-4				*/
+  31              	
+  32 0028 0000A0E3 			MOV R0, #0
+  33 002c 0030A0E3 			MOV R3, #0
+  34 0030 0040A0E3 			MOV R4, #0			/*	R4 i=0	*/
+  35 0034 020054E1 	forI:	CMP	R4, R2			/*	Comparamos para salir de forI	*/
+  36 0038 0600000A 			BEQ finI
+  37              	
+  38 003c 045191E7 			LDR R5, [R1, R4, LSL #2]	/*	Cargamos en R5 A[i]		*/
+  39 0040 030055E1 			CMP R5, R3					/*	Comparamos A[i] con Max	*/
+  40 0044 010000DA 			BLE NoIf					/*	Si A[i] <= Max			*/
+  41              	
+  42 0048 0530A0E1 			MOV R3, R5			/*	MAX = A[i]	*/
+  43 004c 0400A0E1 			MOV R0, R4			/*	IND = i 	*/
+  44              	
+  45              	NoIf:
+  46 0050 014084E2 			ADD R4, #1
+  47 0054 F6FFFFEA 			B forI
+  48              	finI:
+  49              			/*	Recuperamos R4, R5, FP	*/
+  50 0058 3008BDE8 			POP {R4, R5, FP }
+  51 005c 0EF0A0E1 			MOV PC, LR
+  52              	
+  53 0060 00000000 			.end
+  53      00000000 
+  53      00000000 
+DEFINED SYMBOLS
+   ../Practica3a.asm:14     .text:00000000 start
+   ../Practica3a.asm:5      *ABS*:00000008 longA
+   ../Practica3a.asm:8      .data:00000000 A
+   ../Practica3a.asm:11     .bss:00000000 max
+   ../Practica3a.asm:11     .bss:00000000 $d
+   ../Practica3a.asm:15     .text:00000000 $a
+   ../Practica3a.asm:29     .text:00000020 MAX
+   ../Practica3a.asm:35     .text:00000034 forI
+   ../Practica3a.asm:48     .text:00000058 finI
+   ../Practica3a.asm:45     .text:00000050 NoIf
+   ../Practica3a.asm:53     .text:00000060 $d
+                   .debug_aranges:0000000c $d
+
+UNDEFINED SYMBOLS
+_stack

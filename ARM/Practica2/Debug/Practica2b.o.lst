@@ -1,0 +1,97 @@
+   1              	# 1 "../Practica2b.asm"
+   1              	/*51458991-X*/
+   0              	
+   0              	
+   0              	
+   2              	.global start
+   3              	
+   4              	.equ N, 8
+   5              	
+   6              	.data
+   7 0000 07000000 	A: .word 7, 3, 25, 4, 75, 2, 1, 1
+   7      03000000 
+   7      19000000 
+   7      04000000 
+   7      4B000000 
+   8              	
+   9              	.bss
+  10 0000 00000000 	B:	 .space N*4
+  10      00000000 
+  10      00000000 
+  10      00000000 
+  10      00000000 
+  11 0020 00000000 	max: .space 4
+  12 0024 00000000 	ind: .space 4
+  13              	
+  14              	.text
+  15              	start:
+  16 0000 70109FE5 			LDR R1, =max		/*	R1 Mem MAX	*/
+  17              	
+  18 0004 0070A0E3 			MOV R7, #0
+  19 0008 6C809FE5 			LDR R8, =ind		/*	R8 Mem IND	*/
+  20 000c 007088E5 			STR R7, [R8]		/*	R7 Val IND	*/
+  21              	
+  22 0010 68409FE5 			LDR R4, =A			/*	R4 A	*/
+  23 0014 68509FE5 			LDR R5, =B			/*	R5 B	*/
+  24              	
+  25 0018 0030A0E3 			MOV R3, #0			/*	R3 j=0	*/
+  26 001c 080053E3 	forJ:	CMP R3, #N			/*	Comparamos para salir de forJ	*/
+  27 0020 1300000A 			BEQ	finJ
+  28              	
+  29 0024 0000A0E3 			MOV R0, #0
+  30 0028 000081E5 			STR	R0, [R1]		/*	max = 0	*/
+  31              	
+  32 002c 0020A0E3 			MOV R2, #0			/*	R2 i=0	*/
+  33 0030 080052E3 	forI:	CMP	R2, #N			/*	Comparamos para salir de forI	*/
+  34 0034 0800000A 			BEQ finI
+  35              	
+  36 0038 026194E7 			LDR R6, [R4, R2, LSL #2]	/*	Cargamos en R6 A[i]	*/
+  37 003c 000056E1 			CMP R6, R0			/*	Comparamos A[i] con Max	*/
+  38 0040 030000DA 			BLE NoIf			/*	Si A[i] <= Max	*/
+  39              	
+  40 0044 0600A0E1 			MOV R0, R6
+  41 0048 000081E5 			STR R0, [R1]		/*	MAX = A[i]	*/
+  42              	
+  43 004c 0270A0E1 			MOV R7, R2
+  44 0050 007088E5 			STR	R7, [R8]		/*	IND = i 	*/
+  45              	
+  46              	NoIf:
+  47 0054 012082E2 			ADD R2, #1
+  48 0058 F4FFFFEA 			B forI
+  49              	
+  50              	finI:
+  51              	
+  52 005c 079194E7 			LDR R9, [R4, R7, LSL #2]	/*	Recuperamos A[ind]	*/
+  53 0060 039185E7 			STR R9, [R5, R3, LSL #2]	/*	Guardamos B[j] = A[ind]	*/
+  54              	
+  55 0064 0000A0E3 			MOV R0, #0
+  56 0068 070184E7 			STR R0, [R4, R7, LSL #2]	/*	Guardamos A[ind]=0	*/
+  57              	
+  58 006c 013083E2 			ADD R3, #1
+  59 0070 E9FFFFEA 			B forJ
+  60              	finJ:
+  61              	
+  62 0074 FEFFFFEA 	fin:	B .
+  63 0078 20000000 			.end
+  63      24000000 
+  63      00000000 
+  63      00000000 
+DEFINED SYMBOLS
+   ../Practica2b.asm:15     .text:00000000 start
+   ../Practica2b.asm:4      *ABS*:00000008 N
+   ../Practica2b.asm:7      .data:00000000 A
+   ../Practica2b.asm:10     .bss:00000000 B
+   ../Practica2b.asm:10     .bss:00000000 $d
+   ../Practica2b.asm:11     .bss:00000020 max
+   ../Practica2b.asm:12     .bss:00000024 ind
+   ../Practica2b.asm:16     .text:00000000 $a
+   ../Practica2b.asm:26     .text:0000001c forJ
+   ../Practica2b.asm:60     .text:00000074 finJ
+   ../Practica2b.asm:33     .text:00000030 forI
+   ../Practica2b.asm:50     .text:0000005c finI
+   ../Practica2b.asm:46     .text:00000054 NoIf
+   ../Practica2b.asm:62     .text:00000074 fin
+   ../Practica2b.asm:63     .text:00000078 $d
+                   .debug_aranges:0000000c $d
+
+NO UNDEFINED SYMBOLS
